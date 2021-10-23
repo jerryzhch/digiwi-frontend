@@ -1,0 +1,20 @@
+{
+  "cwd": "C:\\Users\\jerry\\github\\digiwi-frontend",
+  "type": [
+    "web",
+    "pwa"
+  ],
+  "name": "My App",
+  "framework": "core",
+  "template": "single-view",
+  "bundler": "vite",
+  "cssPreProcessor": "less",
+  "theming": {
+    "customColor": true,
+    "color": "#0f05a0",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false
+}

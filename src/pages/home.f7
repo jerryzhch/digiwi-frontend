@@ -1,0 +1,46 @@
+<template>
+  <div class="page page-background" data-name="home">
+    <div class="list inset" id="input">
+      <form class="searchbar" id="searchbar-autocomplete">
+        <div class="searchbar-inner">
+          <div class="searchbar-input-wrap">
+            <input type="search" placeholder="Search" />
+            <i class="searchbar-icon"></i>
+            <span class="input-clear-button"></span>
+          </div>
+          <span class="searchbar-disable-button">Cancel</span>
+        </div>
+      </form>
+      <ul>
+
+        <div class="block block-strong" id="category-form">
+          <p class="row">
+            <div class="col category button button-small button-outline" name="accounting">Accounting</div>
+            <div class="col category button button-small button-outline">Team Communication</div>
+            <div class="col category button button-small button-outline">Time Tracking</div>
+            <div class="col category button button-small button-outline">Billing</div>
+          </p>
+          <p class="row">
+            <div class="col category button button-small button-outline">Web presence</div>
+            <div class="col category button button-small button-outline">Inventory / Supply Chain</div>
+            <div class="col category button button-small button-outline">Customer Database</div>
+          </p>
+          <p class="row">
+            <div class="col-33 start-search button button-fill color-red">Start Search</div>
+          </p>
+        </div>
+      </ul>
+    </div>
+  </div>
+</template>
+<script>
+  export default (props, { $, $f7, $on }) => {
+    const fruits = "Accounting Finance Communication Storage ".split(" ");
+
+    let searchbar;
+    let autocompleteDropdownAjax;
+    let autocompleteStandaloneAjax;
+
+    return $render;
+  };
+</script>
