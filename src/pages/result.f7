@@ -14,8 +14,8 @@
     </div>
     <div class="list inset" id="">
       <div class="block-title title-result">Generated Results based on keywords:</div>
-      <div class="block-title title-result">Generated Results based on keywords:</div>
-      <div class="row no-gap">
+      <div class="block-title title-keywords">test</div>
+      <div class="row no-gap results-row">
         <div class="col-30 card card-expandable">
           <div class="card-content">
             <div class="bg-color-red" style="height: 300px">

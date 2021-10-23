@@ -52,7 +52,6 @@ var app = new Framework7({
 
 function start() {
   const categoryForm = document.getElementById("category-form");
-
   // load categories
   let categories = ["Accounting", "Team Communication", "Time Tracking", "Billing", "Web ", "Inventory / Supply Chain", "Customer Database"];
   var result = chunkArray(categories, 4);
@@ -72,12 +71,13 @@ function start() {
 
   $(".start-search").on("click", (e) => {
     let selectedCats = [];
-    console.log(document.querySelectorAll(".selectedCat"));
     [...$(".selectedCat")].map((el) => {
-      console.log(el);
       selectedCats.push(el.getAttribute("name"));
     });
-    console.log(selectedCats);
+    const resultsRow = document.querySelector(".results-row");
+
+    resultsRow.appendChild(getCompRow());
+    const inputText = app.form.convertToData("#searchbar-autocomplete").search;
   });
 }
 
@@ -108,4 +108,51 @@ function chunkArray(myArray, chunk_size) {
   }
 
   return tempArray;
+}
+
+function getCompRow() {
+  const cardDiv = cE("div");
+  const cardContent = cE("div");
+  const bgColor = cE("div");
+  const cardHeader = cE("div");
+  const small1 = cE("small");
+  const small2 = cE("small");
+  const small3 = cE("small");
+  const cardClose = cE("a");
+  const cardCloseI = cE("i");
+  const cardContentPadding = cE("div");
+  const address = cE("p");
+
+  cardDiv.setAttribute("class", "col-30 card card-expandable");
+  cardContent.setAttribute("class", "card-content");
+  bgColor.setAttribute("class", "bg-color-red");
+  bgColor.style = "height: 300px";
+  cardHeader.setAttribute("class", "card-header text-color-white display-block");
+  small1.setAttribute("style", "opacity: 0.7");
+  small2.setAttribute("style", "opacity: 0.7");
+  small3.setAttribute("style", "opacity: 0.7");
+  cardClose.setAttribute("href", "#");
+  cardClose.setAttribute("class", "link card-close card-opened-fade-in color-white");
+  cardClose.setAttribute("style", "position: absolute; right: 15px; top: 15px");
+  cardCloseI.setAttribute("class", "icon f7-icons");
+  cardContentPadding.setAttribute("class", "card-content-padding");
+  address.innerHTML = "Technoparkstrasse 2, 8406 Winterthur";
+  cardCloseI.innerHTML = "xmark_circle_fill";
+  small1.innerHTML = "sklnvsfnvofipvsfmpvmsfop";
+  cardContentPadding.appendChild(address);
+  cardClose.appendChild(cardCloseI);
+  cardHeader.innerHTML = "Framework7";
+  cardHeader.innerHTML += "<br />";
+  cardHeader.appendChild(small1);
+  cardHeader.innerHTML += "<br />";
+  cardHeader.appendChild(small2);
+  cardHeader.innerHTML += "<br />";
+  cardHeader.appendChild(small3);
+  cardHeader.innerHTML += "<br />";
+  bgColor.appendChild(cardHeader);
+  bgColor.appendChild(cardClose);
+  cardContent.appendChild(bgColor);
+  cardContent.appendChild(cardContentPadding);
+  cardDiv.appendChild(cardContent);
+  return cardDiv;
 }
