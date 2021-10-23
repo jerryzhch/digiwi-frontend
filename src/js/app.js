@@ -110,11 +110,25 @@ function start() {
     console.log(inputText);
     if (inputText === "") {
     } else {
-      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=100&update=" + inputText, (data) => console.log(data));
+      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=1&update=" + inputText, (data) => {
+        let c = 0;
+        let datasets = [];
+        data.forEach(({ count, description, keyword }) => {
+          datasets.push({ label: keyword, value: count, color: colorPalette[c] });
+          c++;
+        });
+
+        const pieTooltip = app.pieChart.create({
+          el: ".pie-chart-2",
+          tooltip: true,
+          datasets: datasets,
+          size: 10,
+        });
+      });
     }
   });
 
-  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=100", (data) => {
+  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=1", (data) => {
     let c = 0;
     let datasets = [];
     data.forEach(({ count, description, keyword }) => {
