@@ -56,7 +56,10 @@ var app = new Framework7({
 function start() {
   const categoryForm = document.getElementById("category-form");
   const resultCompanies = $(".result-companies");
-  const colorPalette = ["#ff0000", "#ff8700", "#ffd300", "#deff0a", "#a1ff0a", "#0aff99", "#0aefff", "#147df5", "#580aff", "#be0aff"];
+  //const colorPalette = ["#ff0000", "#ff8700", "#ffd300", "#deff0a", "#a1ff0a", "#0aff99", "#0aefff", "#147df5", "#580aff", "#be0aff"];
+  //const colorPalette = ["#4A235A", "#A569BD", "#1A5276", "#5499C7", "#0E6251", "#48C9B0", "#145A32", "#58D68D", "#283747", "#808B96"];
+  //const colorPalette = ["#154360", "#1F618D", "#2980B9", "#5499C7", "#7FB3D5", "#85929E", "#34495E", "#283747", "#1B2631", "#512E5F"];
+    const colorPalette = ["#0E6251", "#148F77", "#1ABC9C", "#76D7C4", "#D1F2EB", "#73C6B6", "#16A085", "#117A65", "#0B5345"];
   let selectedCounter = 0;
   let selectedCats = [];
   app.request
@@ -117,8 +120,8 @@ function start() {
         app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText, (data) => {
         let c = 0;
         let datasets = [];
-        data.forEach(({ count, description, keyword }) => {
-          datasets.push({ label: keyword, value: count, color: colorPalette[c] });
+            data.forEach(({ count, description, keyword }) => {
+                datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
           c++;
         });
 
@@ -136,7 +139,7 @@ function start() {
     let c = 0;
     let datasets = [];
     data.forEach(({ count, description, keyword }) => {
-      datasets.push({ label: keyword, value: count, color: colorPalette[c] });
+        datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
       c++;
     });
 
