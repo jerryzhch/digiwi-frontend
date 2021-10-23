@@ -1,0 +1,41 @@
+<template>
+  <div class="page page-background" data-name="poll">
+    <div class="navbar navbar-transparent">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Transparent Navbar</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="list inset" id="input-2">
+        <ul>
+          <!-- additional "item-input-outline" class -->
+          <li class="item-content item-input item-input-outline">
+            <div class="item-inner">
+              <div class="item-title item-label">Insert Text</div>
+              <div class="item-input-wrap">
+                <input type="text" name="name" />
+                <span class="input-clear-button"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="button button-fill col-20">Submit</div>
+      </div>
+      <div class="block block-strong pie-strong">
+        <div class="pie-chart pie-chart-2"></div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  export default () => {
+    return $render;
+  };
+</script>

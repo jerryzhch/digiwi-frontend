@@ -1,7 +1,7 @@
 import HomePage from "../pages/home.f7";
 import AboutPage from "../pages/about.f7";
 import FormPage from "../pages/form.f7";
-import ResultPage from "../pages/result.f7";
+import PollPage from "../pages/poll.f7";
 
 import DynamicRoutePage from "../pages/dynamic-route.f7";
 import RequestAndLoad from "../pages/request-and-load.f7";
@@ -9,13 +9,13 @@ import NotFoundPage from "../pages/404.f7";
 
 var routes = [
   {
-    path: "/",
+    path: "/poll/",
     component: HomePage,
   },
   {
-    path: "/result/",
-    name: "result",
-    component: ResultPage,
+    path: "/",
+    name: "poll",
+    component: PollPage,
   },
   {
     path: "/about/",

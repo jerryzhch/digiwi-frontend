@@ -52,13 +52,7 @@ var app = new Framework7({
 function start() {
   const categoryForm = document.getElementById("category-form");
   const resultCompanies = $(".result-companies");
-  // load categories
-  // let categories = ["Accounting", "Team Communication", "Time Tracking", "Billing", "Web ", "Inventory / Supply Chain", "Customer Database"];
-  /*var result = chunkArray(categories, 4);
-  categoryForm.innerHTML = "";
-  result.forEach((element) => {
-    getCatRow(element, categoryForm);
-  }); */
+  const colorPalette = ["#ff0000", "#ff8700", "#ffd300", "#deff0a", "#a1ff0a", "#0aff99", "#0aefff", "#147df5", "#580aff", "#be0aff"];
   let selectedCounter = 0;
   let selectedCats = [];
   app.request
@@ -114,7 +108,19 @@ function start() {
   });
 
   app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=100", (data) => {
-    console.log(data);
+    let c = 0;
+    let datasets = [];
+    data.forEach(({ count, description, keyword }) => {
+      datasets.push({ label: keyword, value: count, color: colorPalette[c] });
+      c++;
+    });
+
+    const pieTooltip = app.pieChart.create({
+      el: ".pie-chart-2",
+      tooltip: true,
+      datasets: datasets,
+      size: 10,
+    });
   });
 }
 
