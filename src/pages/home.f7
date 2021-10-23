@@ -15,7 +15,7 @@
       <form class="searchbar" id="searchbar-autocomplete">
         <div class="searchbar-inner">
           <div class="searchbar-input-wrap">
-            <input type="search" name="search" placeholder="Search" />
+            <input type="search" name="searchQuery" class="searchQuery" placeholder="Search" />
             <i class="searchbar-icon"></i>
             <span class="input-clear-button"></span>
           </div>

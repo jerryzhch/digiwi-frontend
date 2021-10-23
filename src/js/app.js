@@ -53,21 +53,31 @@ var app = new Framework7({
 function start() {
   const categoryForm = document.getElementById("category-form");
   // load categories
-  let categories = ["Accounting", "Team Communication", "Time Tracking", "Billing", "Web ", "Inventory / Supply Chain", "Customer Database"];
-  var result = chunkArray(categories, 4);
+  // let categories = ["Accounting", "Team Communication", "Time Tracking", "Billing", "Web ", "Inventory / Supply Chain", "Customer Database"];
+  /*var result = chunkArray(categories, 4);
   categoryForm.innerHTML = "";
   result.forEach((element) => {
     getCatRow(element, categoryForm);
-  });
-  $(".category").on("click", (e) => {
-    if (e.target.classList.contains("button-fill")) {
-      e.target.classList.remove("button-fill");
-      e.target.classList.remove("selectedCat");
-    } else {
-      e.target.classList.add("button-fill");
-      e.target.classList.add("selectedCat");
-    }
-  });
+  }); */
+  app.request
+    .json("http://localhost:5000/api/SupplierSearch/keyWords", null, (data) => {
+      var result = chunkArray(data, 4);
+      categoryForm.innerHTML = "";
+      result.forEach((element) => {
+        getCatRow(element, categoryForm);
+      });
+    })
+    .then(() => {
+      $(".category").on("click", (e) => {
+        if (e.target.classList.contains("button-fill")) {
+          e.target.classList.remove("button-fill");
+          e.target.classList.remove("selectedCat");
+        } else {
+          e.target.classList.add("button-fill");
+          e.target.classList.add("selectedCat");
+        }
+      });
+    });
 
   $(".start-search").on("click", (e) => {
     let selectedCats = [];
@@ -77,7 +87,13 @@ function start() {
     const resultsRow = document.querySelector(".results-row");
 
     resultsRow.appendChild(getCompRow());
-    const inputText = app.form.convertToData("#searchbar-autocomplete").search;
+    resultsRow.appendChild(getCompRow());
+    //const inputText = app.form.convertToData("#searchbar-autocomplete").searchQuery.toLowerCase();
+    const concatString = selectedCats.reduce((a, b) => a + ";" + b);
+    app.request.json("http://localhost:5000/api/SupplierSearch/byKeyWords", "keyWords=" + concatString, (data) => console.log(data));
+  });
+  $(".searchQuery").keyup((e) => {
+    app.request.json("http://localhost:5000/api/SupplierSearch/keyWordsFromFreeText", "freeText=" + e.target.value.toLowerCase(), (data) => console.log(data));
   });
 }
 
@@ -86,7 +102,7 @@ function getCatRow(arr, toInsertIn) {
   newP.setAttribute("class", "row");
   arr.forEach((catName) => {
     const newDiv = cE("div");
-    newDiv.setAttribute("class", "col category button button-small button-outline");
+    newDiv.setAttribute("class", "col category button button-outline");
     newDiv.setAttribute("name", catName);
     newDiv.innerHTML = catName;
     newP.appendChild(newDiv);
@@ -115,22 +131,22 @@ function getCompRow() {
   const cardContent = cE("div");
   const bgColor = cE("div");
   const cardHeader = cE("div");
-  const small1 = cE("small");
-  const small2 = cE("small");
-  const small3 = cE("small");
   const cardClose = cE("a");
   const cardCloseI = cE("i");
   const cardContentPadding = cE("div");
   const address = cE("p");
+  const starIcon = cE("i");
+  const imgLogo = cE("img");
 
   cardDiv.setAttribute("class", "col-30 card card-expandable");
   cardContent.setAttribute("class", "card-content");
   bgColor.setAttribute("class", "bg-color-red");
   bgColor.style = "height: 300px";
+  imgLogo.setAttribute("src", "https://www.websamurai.ch/wp-content/uploads/2018/10/WEBSAMURAI-mit-Claim-neg-500x134.png");
+  imgLogo.setAttribute("height", "50px");
+  imgLogo.setAttribute("style", "padding: 10px 0 5px 10px");
   cardHeader.setAttribute("class", "card-header text-color-white display-block");
-  small1.setAttribute("style", "opacity: 0.7");
-  small2.setAttribute("style", "opacity: 0.7");
-  small3.setAttribute("style", "opacity: 0.7");
+  starIcon.setAttribute("class", "icon f7-icons");
   cardClose.setAttribute("href", "#");
   cardClose.setAttribute("class", "link card-close card-opened-fade-in color-white");
   cardClose.setAttribute("style", "position: absolute; right: 15px; top: 15px");
@@ -138,21 +154,44 @@ function getCompRow() {
   cardContentPadding.setAttribute("class", "card-content-padding");
   address.innerHTML = "Technoparkstrasse 2, 8406 Winterthur";
   cardCloseI.innerHTML = "xmark_circle_fill";
-  small1.innerHTML = "sklnvsfnvofipvsfmpvmsfop";
+  starIcon.innerHTML = "star_fill";
   cardContentPadding.appendChild(address);
   cardClose.appendChild(cardCloseI);
-  cardHeader.innerHTML = "Framework7";
+
+  cardHeader.innerHTML = "Framework7 ";
+  const rating = 6;
+  for (let i = 0; i < rating; i++) {
+    cardHeader.appendChild(starIcon.cloneNode(true));
+  }
+  const expertiseTuple = [
+    ["technik", "6"],
+    ["Acc", "4"],
+  ];
+  const expertises = getExpertisesElements(expertiseTuple, starIcon);
+  expertises.forEach((expertise) => {
+    cardHeader.innerHTML += "<br />";
+    cardHeader.appendChild(expertise);
+  });
   cardHeader.innerHTML += "<br />";
-  cardHeader.appendChild(small1);
-  cardHeader.innerHTML += "<br />";
-  cardHeader.appendChild(small2);
-  cardHeader.innerHTML += "<br />";
-  cardHeader.appendChild(small3);
-  cardHeader.innerHTML += "<br />";
+  bgColor.appendChild(imgLogo);
   bgColor.appendChild(cardHeader);
   bgColor.appendChild(cardClose);
   cardContent.appendChild(bgColor);
   cardContent.appendChild(cardContentPadding);
   cardDiv.appendChild(cardContent);
   return cardDiv;
+}
+
+function getExpertisesElements(exp, star) {
+  const arrayOfRatedExp = [];
+  exp.forEach((ex) => {
+    const small1 = cE("small");
+    small1.setAttribute("style", "opacity: 0.7");
+    small1.innerHTML = ex[0] + " ";
+    for (let i = 0; i < ex[1] - 0; i++) {
+      small1.appendChild(star.cloneNode(true));
+    }
+    arrayOfRatedExp.push(small1);
+  });
+  return arrayOfRatedExp;
 }
