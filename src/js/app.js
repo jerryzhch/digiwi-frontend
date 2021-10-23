@@ -16,6 +16,8 @@ import store from "./store.js";
 // Import main app component
 import App from "../app.f7";
 
+let pollId = 0;
+
 var app = new Framework7({
   name: "My App", // App name
   theme: "auto", // Automatic theme detection
@@ -26,8 +28,10 @@ var app = new Framework7({
     init: function () {
       console.log("App initialized");
     },
-    pageInit: async function () {
-      console.log("Page initialized");
+    pageInit: async function (e) {
+        console.log("Page initialized");
+        console.log(e.route.query.pollId);
+        pollId = e.route.query.pollId;
       setTimeout(() => {
         start();
       }, 500);
@@ -110,7 +114,7 @@ function start() {
     console.log(inputText);
     if (inputText === "") {
     } else {
-      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=1&update=" + inputText, (data) => {
+        app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText, (data) => {
         let c = 0;
         let datasets = [];
         data.forEach(({ count, description, keyword }) => {
@@ -128,7 +132,7 @@ function start() {
     }
   });
 
-  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=1", (data) => {
+    app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
     let c = 0;
     let datasets = [];
     data.forEach(({ count, description, keyword }) => {
