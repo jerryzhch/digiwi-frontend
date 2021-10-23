@@ -96,14 +96,21 @@ function start() {
     if (e.target.value === "") {
       resultCompanies.empty();
       $(".catContainer").show();
-      //$(".page-background").css("overflow", "hidden");
     } else {
       $(".catContainer").hide();
-      //$(".page-background").css("overflow", "auto");
       app.request.json("http://localhost:5000/api/SupplierSearch/byKeyWords", "keyWords=" + e.target.value.toLowerCase().replaceAll(" ", ";").replaceAll(".", ";").replaceAll(",", ";"), (data) => {
         resultCompanies.empty();
         data.forEach((d) => resultCompanies.append(getCompRow(d)));
       });
+    }
+  });
+  $(".submit-button").on("click", (e) => {
+    const inputText = $(".inputText").val();
+    document.querySelector(".inputText").value = "";
+    console.log(inputText);
+    if (inputText === "") {
+    } else {
+      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=100&update=" + inputText, (data) => console.log(data));
     }
   });
 

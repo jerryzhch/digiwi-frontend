@@ -20,13 +20,13 @@
             <div class="item-inner">
               <div class="item-title item-label">Insert Text</div>
               <div class="item-input-wrap">
-                <input type="text" name="name" />
+                <input type="text" name="input-text" class="inputText" />
                 <span class="input-clear-button"></span>
               </div>
             </div>
           </li>
         </ul>
-        <div class="button button-fill col-20">Submit</div>
+        <div class="button button-fill submit-button">Submit</div>
       </div>
       <div class="block block-strong pie-strong">
         <div class="pie-chart pie-chart-2"></div>
