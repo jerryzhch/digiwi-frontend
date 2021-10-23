@@ -9,11 +9,11 @@ import NotFoundPage from "../pages/404.f7";
 
 var routes = [
   {
-    path: "/poll/",
+    path: "/",
     component: HomePage,
   },
   {
-    path: "/",
+    path: "/poll/",
     name: "poll",
     component: PollPage,
   },
