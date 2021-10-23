@@ -1,5 +1,16 @@
 <template>
   <div class="page page-background" data-name="home">
+    <div class="navbar navbar-transparent">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="right">
+          <a class="link" href="/solution/">
+            <i class="icon"></i>
+            <span class="" style="color: red">Solution Provider Page</span>
+          </a>
+        </div>
+      </div>
+    </div>
     <div class="list inset" id="input">
       <form class="searchbar" id="searchbar-autocomplete">
         <div class="searchbar-inner">
@@ -12,23 +23,10 @@
         </div>
       </form>
       <ul>
-
-        <div class="block block-strong" id="category-form">
-          <p class="row">
-            <div class="col category button button-small button-outline" name="accounting">Accounting</div>
-            <div class="col category button button-small button-outline">Team Communication</div>
-            <div class="col category button button-small button-outline">Time Tracking</div>
-            <div class="col category button button-small button-outline">Billing</div>
-          </p>
-          <p class="row">
-            <div class="col category button button-small button-outline">Web presence</div>
-            <div class="col category button button-small button-outline">Inventory / Supply Chain</div>
-            <div class="col category button button-small button-outline">Customer Database</div>
-          </p>
-          <p class="row">
-            <div class="col-33 start-search button button-fill color-red">Start Search</div>
-          </p>
-        </div>
+        <div class="block block-strong" id="category-form"></div>
+        <p class="block block-strong row start-search-row">
+          <a class="col-33 start-search button button-fill color-red" href="/result/">Start Search</a>
+        </p>
       </ul>
     </div>
   </div>

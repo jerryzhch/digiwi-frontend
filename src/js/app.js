@@ -26,10 +26,16 @@ var app = new Framework7({
     init: function () {
       console.log("App initialized");
     },
-    pageInit: function () {
+    pageInit: async function () {
       console.log("Page initialized");
-      start();
+      setTimeout(() => {
+        start();
+      }, 500);
     },
+  },
+  card: {
+    hideNavbarOnOpen: true,
+    closeByBackdropClick: true,
   },
   // App store
   store: store,
@@ -46,6 +52,14 @@ var app = new Framework7({
 
 function start() {
   const categoryForm = document.getElementById("category-form");
+
+  // load categories
+  let categories = ["Accounting", "Team Communication", "Time Tracking", "Billing", "Web ", "Inventory / Supply Chain", "Customer Database"];
+  var result = chunkArray(categories, 4);
+  categoryForm.innerHTML = "";
+  result.forEach((element) => {
+    getCatRow(element, categoryForm);
+  });
   $(".category").on("click", (e) => {
     if (e.target.classList.contains("button-fill")) {
       e.target.classList.remove("button-fill");
@@ -58,8 +72,40 @@ function start() {
 
   $(".start-search").on("click", (e) => {
     let selectedCats = [];
-    [...categoryForm.querySelectorAll(".selectedCat")].map((el) => {
+    console.log(document.querySelectorAll(".selectedCat"));
+    [...$(".selectedCat")].map((el) => {
+      console.log(el);
       selectedCats.push(el.getAttribute("name"));
     });
+    console.log(selectedCats);
   });
+}
+
+function getCatRow(arr, toInsertIn) {
+  const newP = cE("p");
+  newP.setAttribute("class", "row");
+  arr.forEach((catName) => {
+    const newDiv = cE("div");
+    newDiv.setAttribute("class", "col category button button-small button-outline");
+    newDiv.setAttribute("name", catName);
+    newDiv.innerHTML = catName;
+    newP.appendChild(newDiv);
+  });
+  toInsertIn.insertBefore(newP, toInsertIn.querySelector(".row"));
+}
+
+function cE(el) {
+  return document.createElement(el);
+}
+
+function chunkArray(myArray, chunk_size) {
+  var index = 0;
+  var arrayLength = myArray.length;
+  var tempArray = [];
+
+  for (index = 0; index < arrayLength; index += chunk_size) {
+    tempArray.push(myArray.slice(index, index + chunk_size));
+  }
+
+  return tempArray;
 }
