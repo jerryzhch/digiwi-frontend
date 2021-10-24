@@ -41,6 +41,7 @@ var app = new Framework7({
   },
   card: {
     hideNavbarOnOpen: true,
+    backdrop: false,
   },
   // App store
   store: store,
