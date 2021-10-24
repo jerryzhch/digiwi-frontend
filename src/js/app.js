@@ -21,7 +21,7 @@ const baseUrl = "http://localhost:5000";
 //const baseUrl = "https://localhost:5001";
 
 var app = new Framework7({
-  name: "My App", // App name
+  name: "WeDigi", // App name
   theme: "auto", // Automatic theme detection
   el: "#app", // App root element
   component: App, // App main component
@@ -231,7 +231,8 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   cardClose.setAttribute("class", "link card-close card-opened-fade-in color-white");
   cardClose.setAttribute("style", "position: absolute; right: 15px; top: 15px");
   cardCloseI.setAttribute("class", "icon f7-icons");
-  matchButton.setAttribute("class", "link button button-fill");
+  matchButton.setAttribute("class", "card-close link button button-fill");
+  matchButton.setAttribute("value", name);
   cardContentPadding.setAttribute("class", "card-content-padding");
   cardCloseI.innerHTML = "xmark_circle_fill";
   starIcon.innerHTML = "star_fill";
@@ -243,6 +244,11 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
     const newTextNode = document.createTextNode("  " + address);
     addressP.appendChild(newTextNode);
   }
+  matchButton.addEventListener("click", (e) => {
+    app.dialog.confirm("Confirm Match with " + e.target.getAttribute("value"), function () {
+      app.dialog.alert("Great!");
+    });
+  });
   const newA = cE("a");
   newA.setAttribute("href", url);
   newA.setAttribute("class", "link external");
@@ -251,7 +257,7 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   websiteP.appendChild(newA);
   cardContentPadding.appendChild(addressP);
   cardContentPadding.appendChild(websiteP);
-  cardContentPadding.appendChild(matchButton);
+  if (!isTool) cardContentPadding.appendChild(matchButton);
   cardClose.appendChild(cardCloseI);
 
   cardHeader.innerHTML = name + " ";
