@@ -6,9 +6,11 @@
         <div class="left">
           <img src="../assets/WintiBlackAndWhite.png" alt="Logo" height="50px" style="padding: 5px" />
         </div>
+        <div class="right"><a href="/about/">About the Product</a></div>
       </div>
     </div>
     <div class="page-content">
+      <p class="title-question">Company Evaluation</p>
       <div class="row block" id="input-2">
         <div class="col-70 list inset">
           <ul>

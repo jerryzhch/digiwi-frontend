@@ -6,9 +6,11 @@
         <div class="left">
           <img src="../assets/WintiBlackAndWhite.png" alt="Logo" height="50px" style="padding: 5px" />
         </div>
+        <div class="right"><a href="/about/">About the Product</a></div>
       </div>
     </div>
     <div class="page-content hide-toolbar-on-scroll">
+      <p class="title-question">State Your Needs</p>
       <div class="list inset" id="input">
         <form class="searchbar" id="searchbar-autocomplete">
           <div class="searchbar-inner">
