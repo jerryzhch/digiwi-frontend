@@ -17,8 +17,8 @@ import store from "./store.js";
 import App from "../app.f7";
 
 let pollId = 0;
-//const baseUrl = "http://localhost:5000";
-const baseUrl = "https://localhost:5001";
+const baseUrl = "http://localhost:5000";
+//const baseUrl = "https://localhost:5001";
 
 var app = new Framework7({
   name: "My App", // App name
@@ -147,6 +147,17 @@ function start() {
       });
     }
   });
+  $(".loadCatToMain").on("click", (e) => {
+    let arr = [];
+    $(".data-table-row-selected").forEach((sel) => {
+      arr.push(sel.getAttribute("value"));
+    });
+    const queryString = arr.reduce((a, b) => a.capitalize() + " " + b.capitalize());
+    $(".view-home").click();
+    arr.map((el) => {
+      document.querySelector(`[name=${el}]`).click();
+    });
+  });
 }
 
 function getCatRow(arr, toInsertIn) {
@@ -197,7 +208,7 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   cardDiv.setAttribute("class", "col-30 card card-expandable");
   cardContent.setAttribute("class", "card-content");
   if (isTool) {
-    bgColor.setAttribute("class", "bg-color-cadetblue");
+    bgColor.setAttribute("class", "bg-color-cadetblue-dark");
   } else {
     bgColor.setAttribute("class", "bg-color-cadetblue");
   }
@@ -283,6 +294,7 @@ function getTableLine(key, val) {
   newi.setAttribute("class", "icon-checkbox");
   newTh2.setAttribute("class", "label-cell");
   newTh3.setAttribute("class", "numeric-cell");
+  newTr.setAttribute("value", key);
 
   newTh2.innerHTML = key;
   newTh3.innerHTML = val;

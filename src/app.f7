@@ -5,20 +5,19 @@
       <!-- Tabbar for switching views-tabs -->
       <div class="toolbar toolbar-bottom tabbar-labels">
         <div class="toolbar-inner">
-          <a href="#view-home" class="tab-link tab-link-active">
+          <a href="#view-home" class="tab-link tab-link-active view-home">
             <i class="icon f7-icons if-not-md">house_fill</i>
             <i class="icon material-icons if-md">home</i>
             <span class="tabbar-label">Home</span>
           </a>
-          <a href="#view-poll" class="tab-link">
+          <a href="#view-poll" class="tab-link view-poll">
             <i class="icon f7-icons if-not-md">square_list_fill</i>
             <i class="icon material-icons if-md">view_list</i>
             <span class="tabbar-label">Poll Evaluation</span>
           </a>
-          <a href="#view-solution" class="tab-link">
-            <i class="icon f7-icons if-not-md">gear</i>
-            <i class="icon material-icons if-md">settings</i>
-            <span class="tabbar-label">Settings</span>
+          <a href="#view-solution" class="tab-link view-solution">
+            <i class="icon f7-icons">person_badge_plus</i>
+            <span class="tabbar-label">Solution Provider Registration</span>
           </a>
         </div>
       </div>
@@ -34,7 +33,7 @@
       </div>
 
       <!-- Settings View -->
-      <div id="view-solution" class="view view-init tab" data-name="solution" data-url="/solution/">
+      <div id="view-solution" class="view view-init tab" data-name="solution" data-url="/form/">
         <!-- Settings page will be loaded here dynamically from /settings/ route -->
       </div>
     </div>

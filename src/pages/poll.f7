@@ -52,7 +52,7 @@
               <div class="data-table-title-selected"><span class="data-table-selected-count"></span> item(s) selected. Click the arrow to search for matching solution providers</div>
               <!-- Selected table actions -->
               <div class="data-table-actions">
-                <a class="link icon-only">
+                <a class="link icon-only loadCatToMain">
                   <i class="icon f7-icons">arrowtriangle_right</i>
                 </a>
                 <a class="link icon-only">
