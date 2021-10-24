@@ -17,6 +17,8 @@ import store from "./store.js";
 import App from "../app.f7";
 
 let pollId = 0;
+//const baseUrl = "http://localhost:5000";
+const baseUrl = "https://localhost:5001";
 
 var app = new Framework7({
   name: "My App", // App name
@@ -62,7 +64,7 @@ function start() {
   let selectedCounter = 0;
   let selectedCats = [];
   app.request
-    .json("http://localhost:5000/api/SupplierSearch/keyWords", null, (data) => {
+    .json(baseUrl + "/api/SupplierSearch/keyWords", null, (data) => {
       var result = chunkArray(data, 4);
       categoryForm.innerHTML = "";
       result.forEach((element) => {
@@ -89,7 +91,7 @@ function start() {
         }
         if (selectedCats.length > 0) {
           const concatString = selectedCats.reduce((a, b) => a + ";" + b);
-          app.request.json("http://localhost:5000/api/SupplierSearch/byKeyWords", "keyWords=" + concatString, (data) => {
+          app.request.json(baseUrl + "/api/SupplierSearch/byKeyWords", "keyWords=" + concatString, (data) => {
             data.forEach((d) => resultCompanies.append(getCompRow(d)));
           });
         }
@@ -102,7 +104,7 @@ function start() {
       $(".catContainer").show();
     } else {
       $(".catContainer").hide();
-      app.request.json("http://localhost:5000/api/SupplierSearch/byKeyWords", "keyWords=" + e.target.value.toLowerCase().replaceAll(" ", ";").replaceAll(".", ";").replaceAll(",", ";"), (data) => {
+      app.request.json(baseUrl + "/api/SupplierSearch/byKeyWords", "keyWords=" + e.target.value.toLowerCase().replaceAll(" ", ";").replaceAll(".", ";").replaceAll(",", ";"), (data) => {
         resultCompanies.empty();
         data.forEach((d) => resultCompanies.append(getCompRow(d)));
       });
@@ -119,7 +121,7 @@ function start() {
   });
 
   let pollStatsData = [];
-  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
+  app.request.json(baseUrl + "/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
     let c = 0;
     data.forEach(({ count, description, keyword }) => {
       pollStatsData.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length], description });
@@ -133,7 +135,7 @@ function start() {
     if (inputText === "") {
     } else {
       pollStatsData = [];
-      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText.replace(/(\r\n|\n|\r)/gm, ";").replace(" ", ";"), (data) => {
+      app.request.json(baseUrl + "/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText.replaceAll(/(\r\n|\n|\r)/gm, " "), (data) => {
         let c = 0;
         console.log(data);
         data.forEach(({ count, description, keyword }) => {
