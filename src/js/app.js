@@ -21,7 +21,7 @@ const baseUrl = "http://localhost:5000";
 //const baseUrl = "https://localhost:5001";
 
 var app = new Framework7({
-  name: "WeDigi", // App name
+  name: "WiDigi", // App name
   theme: "auto", // Automatic theme detection
   el: "#app", // App root element
   component: App, // App main component
@@ -246,7 +246,7 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   }
   matchButton.addEventListener("click", (e) => {
     app.dialog.confirm("Confirm Match with " + e.target.getAttribute("value"), function () {
-      app.dialog.alert("Great! Somebody at " + e.target.getAttribute("value") + " will contact you. Thank You for using WeDigi");
+      app.dialog.alert("Great! Somebody at " + e.target.getAttribute("value") + " will contact you. Thank You for using WiDigi");
     });
   });
   const newA = cE("a");

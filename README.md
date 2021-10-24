@@ -1,4 +1,4 @@
-# WeDiGi - Digital Winterthur Hackathon Challenge
+# WiDiGi - Digital Winterthur Hackathon Challenge
 
 ## Install Dependencies
 
