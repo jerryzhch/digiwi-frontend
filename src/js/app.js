@@ -209,6 +209,7 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   const houseIcon = cE("i");
   const imgLogo = cE("img");
   const linkIcon = cE("i");
+  const matchButton = cE("div");
 
   cardDiv.setAttribute("class", "col-30 card card-expandable");
   cardContent.setAttribute("class", "card-content");
@@ -229,11 +230,13 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   cardClose.setAttribute("class", "link card-close card-opened-fade-in color-white");
   cardClose.setAttribute("style", "position: absolute; right: 15px; top: 15px");
   cardCloseI.setAttribute("class", "icon f7-icons");
+  matchButton.setAttribute("class", "link button button-fill");
   cardContentPadding.setAttribute("class", "card-content-padding");
   cardCloseI.innerHTML = "xmark_circle_fill";
   starIcon.innerHTML = "star_fill";
   houseIcon.innerHTML = "house";
   linkIcon.innerText = "link_circle";
+  matchButton.innerHTML = "Match with " + name + "?";
   if (!isTool) {
     addressP.appendChild(houseIcon);
     const newTextNode = document.createTextNode("  " + address);
@@ -247,6 +250,7 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   websiteP.appendChild(newA);
   cardContentPadding.appendChild(addressP);
   cardContentPadding.appendChild(websiteP);
+  cardContentPadding.appendChild(matchButton);
   cardClose.appendChild(cardCloseI);
 
   cardHeader.innerHTML = name + " ";
@@ -266,7 +270,6 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   cardContent.appendChild(cardContentPadding);
   cardDiv.appendChild(cardContent);
 
-  cardDiv.addEventListener("click", (e) => {});
   return cardDiv;
 }
 
