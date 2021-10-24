@@ -34,6 +34,20 @@ var app = new Framework7({
       console.log("Page initialized");
       console.log(e.route.query.pollId);
       pollId = e.route.query.pollId;
+
+      console.log("currentPath in storage:");
+      console.log(localStorage.getItem("currentPath"));
+      var tablinks = document.getElementsByClassName("toolbar");
+      for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].addEventListener(
+          "click",
+          (e) => {
+            localStorage.setItem("currentPath", e.target.pathname);
+            console.log(e);
+          },
+          false
+        );
+      }
       setTimeout(() => {
         start();
       }, 500);
@@ -55,6 +69,10 @@ var app = new Framework7({
       : {},
 });
 function start() {
+  $(".tab-link").on("click", (e) => {
+    console.log(e.target);
+    localStorage.setItem("currentPath", e.target.value);
+  });
   const categoryForm = document.getElementById("category-form");
   const resultCompanies = $(".result-companies");
   //const colorPalette = ["#ff0000", "#ff8700", "#ffd300", "#deff0a", "#a1ff0a", "#0aff99", "#0aefff", "#147df5", "#580aff", "#be0aff"];
@@ -155,7 +173,7 @@ function start() {
     const queryString = arr.reduce((a, b) => a.capitalize() + " " + b.capitalize());
     $(".view-home").click();
     arr.map((el) => {
-      document.querySelector(`[name=${el}]`).click();
+      $(`.category[name=${el}]`).click();
     });
   });
 }
