@@ -1,5 +1,5 @@
 <template>
-  <div class="page page-background" data-name="poll">
+  <div class="page page-background theme-dark" data-name="poll">
     <div class="navbar navbar-transparent">
       <div class="navbar-bg"></div>
       <div class="navbar-inner sliding">
@@ -9,23 +9,77 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="list inset" id="input-2">
-        <ul>
-          <!-- additional "item-input-outline" class -->
-          <li class="item-content item-input item-input-outline">
-            <div class="item-inner">
-              <div class="item-title item-label">Insert Text</div>
-              <div class="item-input-wrap">
-                <input type="text" name="input-text" class="inputText" />
-                <span class="input-clear-button"></span>
+      <div class="row block" id="input-2">
+        <div class="col-70 list inset">
+          <ul>
+            <!--<input type="text" name="input-text" class="inputText resizable" placeholder="Insert Text" />-->
+            <li class="item-content item-input item-input-outline">
+              <div class="item-inner">
+                <div class="item-input-wrap">
+                  <textarea type="text" name="input-text" class="inputText resizable" placeholder="Insert Text"></textarea>
+                  <span class="input-clear-button"></span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-20 button button-fill submit-button">Submit</div>
+      </div>
+      <div class="row block block-strong pie-strong">
+        <div class="col-50 pie-chart pie-chart-2"></div>
+        <div class="col-50 data-table data-table-init card">
+          <!-- Card header -->
+          <div class="card-header">
+            <!-- Default table header -->
+            <div class="data-table-header">
+              <!-- Default table title -->
+              <div class="data-table-title">Poll Analysis</div>
+              <!-- Default table actions -->
+              <div class="data-table-actions">
+                <a class="link icon-only">
+                  <i class="icon f7-icons if-not-md">line_horizontal_3_decrease</i>
+                  <i class="icon material-icons md-only">sort</i>
+                </a>
+                <a class="link icon-only">
+                  <i class="icon f7-icons if-not-md">ellipsis_vertical_circle</i>
+                  <i class="icon material-icons md-only">more_vert</i>
+                </a>
               </div>
             </div>
-          </li>
-        </ul>
-        <div class="button button-fill submit-button">Submit</div>
-      </div>
-      <div class="block block-strong pie-strong">
-        <div class="pie-chart pie-chart-2"></div>
+            <!-- Selected table header -->
+            <div class="data-table-header-selected">
+              <!-- Selected table title -->
+              <div class="data-table-title-selected"><span class="data-table-selected-count"></span> item(s) selected. Click the arrow to search for matching solution providers</div>
+              <!-- Selected table actions -->
+              <div class="data-table-actions">
+                <a class="link icon-only">
+                  <i class="icon f7-icons">arrowtriangle_right</i>
+                </a>
+                <a class="link icon-only">
+                  <i class="icon f7-icons if-not-md">ellipsis_vertical_circle</i>
+                  <i class="icon material-icons md-only">more_vert</i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <table>
+              <thead>
+                <tr>
+                  <th class="checkbox-cell">
+                    <label class="checkbox">
+                      <input type="checkbox" />
+                      <i class="icon-checkbox"></i>
+                    </label>
+                  </th>
+                  <th class="label-cell">Topics</th>
+                  <th class="numeric-cell">Count</th>
+                </tr>
+              </thead>
+              <tbody class="pie-chart-table"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

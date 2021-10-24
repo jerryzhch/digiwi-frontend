@@ -1,5 +1,5 @@
 <template>
-  <div class="page page-background" data-name="home">
+  <div class="page page-background theme-dark" data-name="home">
     <div class="navbar navbar-transparent">
       <div class="navbar-bg"></div>
       <div class="navbar-inner sliding">

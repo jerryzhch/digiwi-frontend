@@ -84,10 +84,8 @@ function start() {
         }
         if (selectedCounter !== 0) {
           $("#searchbar-autocomplete").hide();
-          //$(".page-background").css("overflow", "auto");
         } else {
           $("#searchbar-autocomplete").show();
-          //$(".page-background").css("overflow", "hidden");
         }
         if (selectedCats.length > 0) {
           const concatString = selectedCats.reduce((a, b) => a + ";" + b);
@@ -117,19 +115,12 @@ function start() {
     if (inputText === "") {
     } else {
       console.log(pollId);
-      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText, (data) => {
+      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText.replace(/(\r\n|\n|\r)/gm, ""), (data) => {
         let c = 0;
         let datasets = [];
         data.forEach(({ count, description, keyword }) => {
           datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
           c++;
-        });
-
-        const pieTooltip = app.pieChart.create({
-          el: ".pie-chart-2",
-          tooltip: true,
-          datasets: datasets,
-          size: 10,
         });
       });
     }
@@ -138,8 +129,9 @@ function start() {
   app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
     let c = 0;
     let datasets = [];
+    console.log(data);
     data.forEach(({ count, description, keyword }) => {
-      datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
+      datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length], description });
       c++;
     });
 
@@ -147,7 +139,15 @@ function start() {
       el: ".pie-chart-2",
       tooltip: true,
       datasets: datasets,
-      size: 10,
+      size: 100,
+      formatTooltip(data) {
+        const { value, label, color } = data;
+        return `You have <span style="color: ${color}">${value}</span> people voted on for ${label}`;
+      },
+    });
+    $(".pie-chart-table").empty();
+    datasets.forEach(({ label, value, description }) => {
+      $(".pie-chart-table").append(getTableLine(label, value));
     });
   });
 }
@@ -270,6 +270,35 @@ function getExpertisesElements(exp, star) {
   });
   return arrayOfRatedExp;
 }
+
+function getTableLine(key, val) {
+  const newTr = cE("tr");
+  const newTh1 = cE("td");
+  const newLabel = cE("label");
+  const newInput = cE("input");
+  const newi = cE("i");
+  const newTh2 = cE("td");
+  const newTh3 = cE("td");
+
+  newTh1.setAttribute("class", "checkbox-cell");
+  newLabel.setAttribute("class", "checkbox");
+  newInput.setAttribute("type", "checkbox");
+  newi.setAttribute("class", "icon-checkbox");
+  newTh2.setAttribute("class", "label-cell");
+  newTh3.setAttribute("class", "numeric-cell");
+
+  newTh2.innerHTML = key;
+  newTh3.innerHTML = val;
+
+  newLabel.appendChild(newInput);
+  newLabel.appendChild(newi);
+  newTh1.appendChild(newLabel);
+  newTr.appendChild(newTh1);
+  newTr.appendChild(newTh2);
+  newTr.appendChild(newTh3);
+  return newTr;
+}
+
 Object.defineProperty(String.prototype, "capitalize", {
   value: function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
