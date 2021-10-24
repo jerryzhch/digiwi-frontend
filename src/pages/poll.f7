@@ -4,12 +4,8 @@
       <div class="navbar-bg"></div>
       <div class="navbar-inner sliding">
         <div class="left">
-          <a class="link back">
-            <i class="icon icon-back"></i>
-            <span class="if-not-md">Back</span>
-          </a>
+          <img src="../assets/WintiBlackAndWhite.png" alt="Logo" height="50px" style="padding: 5px" />
         </div>
-        <div class="title">Transparent Navbar</div>
       </div>
     </div>
     <div class="page-content">

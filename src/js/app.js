@@ -28,10 +28,10 @@ var app = new Framework7({
     init: function () {
       console.log("App initialized");
     },
-    pageInit: async function (e) {
-        console.log("Page initialized");
-        console.log(e.route.query.pollId);
-        pollId = e.route.query.pollId;
+    pageInit: function (e) {
+      console.log("Page initialized");
+      console.log(e.route.query.pollId);
+      pollId = e.route.query.pollId;
       setTimeout(() => {
         start();
       }, 500);
@@ -52,14 +52,13 @@ var app = new Framework7({
         }
       : {},
 });
-
 function start() {
   const categoryForm = document.getElementById("category-form");
   const resultCompanies = $(".result-companies");
   //const colorPalette = ["#ff0000", "#ff8700", "#ffd300", "#deff0a", "#a1ff0a", "#0aff99", "#0aefff", "#147df5", "#580aff", "#be0aff"];
   //const colorPalette = ["#4A235A", "#A569BD", "#1A5276", "#5499C7", "#0E6251", "#48C9B0", "#145A32", "#58D68D", "#283747", "#808B96"];
   //const colorPalette = ["#154360", "#1F618D", "#2980B9", "#5499C7", "#7FB3D5", "#85929E", "#34495E", "#283747", "#1B2631", "#512E5F"];
-    const colorPalette = ["#0E6251", "#148F77", "#1ABC9C", "#76D7C4", "#D1F2EB", "#73C6B6", "#16A085", "#117A65", "#0B5345"];
+  const colorPalette = ["#0E6251", "#148F77", "#1ABC9C", "#76D7C4", "#D1F2EB", "#73C6B6", "#16A085", "#117A65", "#0B5345"];
   let selectedCounter = 0;
   let selectedCats = [];
   app.request
@@ -117,11 +116,12 @@ function start() {
     console.log(inputText);
     if (inputText === "") {
     } else {
-        app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText, (data) => {
+      console.log(pollId);
+      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText, (data) => {
         let c = 0;
         let datasets = [];
-            data.forEach(({ count, description, keyword }) => {
-                datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
+        data.forEach(({ count, description, keyword }) => {
+          datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
           c++;
         });
 
@@ -135,11 +135,11 @@ function start() {
     }
   });
 
-    app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
+  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
     let c = 0;
     let datasets = [];
     data.forEach(({ count, description, keyword }) => {
-        datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
+      datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
       c++;
     });
 
@@ -157,7 +157,7 @@ function getCatRow(arr, toInsertIn) {
   newP.setAttribute("class", "row");
   arr.forEach((catName) => {
     const newDiv = cE("div");
-    newDiv.setAttribute("class", "col category button button-outline");
+    newDiv.setAttribute("class", "col category button button-large button-outline");
     newDiv.setAttribute("name", catName.keyword);
     newDiv.innerHTML = catName.keyword;
     newP.appendChild(newDiv);
@@ -200,9 +200,9 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   cardDiv.setAttribute("class", "col-30 card card-expandable");
   cardContent.setAttribute("class", "card-content");
   if (isTool) {
-    bgColor.setAttribute("class", "bg-color-yellow");
+    bgColor.setAttribute("class", "bg-color-cadetblue");
   } else {
-    bgColor.setAttribute("class", "bg-color-red");
+    bgColor.setAttribute("class", "bg-color-cadetblue");
   }
   bgColor.style = "height: 300px";
   imgLogo.setAttribute("src", imageUrl);

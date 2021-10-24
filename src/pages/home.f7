@@ -2,24 +2,13 @@
   <div class="page page-background" data-name="home">
     <div class="navbar navbar-transparent">
       <div class="navbar-bg"></div>
-      <div class="left"><img src="../assets/WintiBlackAndWhite.png" alt="Logo" height="50px" style="padding: 5px" /></div>
       <div class="navbar-inner sliding">
-        <div class="right">
-          <a class="link" href="/form/">
-            <i class="icon"></i>
-            <span class="" style="color: red">Solution Provider Registration</span>
-          </a>
+        <div class="left">
+          <img src="../assets/WintiBlackAndWhite.png" alt="Logo" height="50px" style="padding: 5px" />
         </div>
       </div>
     </div>
-    <div class="toolbar toolbar-bottom">
-      <div class="toolbar-inner">
-        <a href="#" class="link">Link 1</a>
-        <a href="#" class="link">Link 2</a>
-        <a href="#" class="link">Link 3</a>
-      </div>
-    </div>
-    <div class="page-content">
+    <div class="page-content hide-toolbar-on-scroll">
       <div class="list inset" id="input">
         <form class="searchbar" id="searchbar-autocomplete">
           <div class="searchbar-inner">

@@ -1,7 +1,43 @@
 <template>
   <div id="app">
-    <!-- Your main view, should have "view-main" class -->
-    <div class="view view-main view-init safe-areas" data-url="/"></div>
+    <!-- Views/Tabs container -->
+    <div class="views tabs safe-areas">
+      <!-- Tabbar for switching views-tabs -->
+      <div class="toolbar toolbar-bottom tabbar-labels">
+        <div class="toolbar-inner">
+          <a href="#view-home" class="tab-link tab-link-active">
+            <i class="icon f7-icons if-not-md">house_fill</i>
+            <i class="icon material-icons if-md">home</i>
+            <span class="tabbar-label">Home</span>
+          </a>
+          <a href="#view-poll" class="tab-link">
+            <i class="icon f7-icons if-not-md">square_list_fill</i>
+            <i class="icon material-icons if-md">view_list</i>
+            <span class="tabbar-label">Poll Evaluation</span>
+          </a>
+          <a href="#view-solution" class="tab-link">
+            <i class="icon f7-icons if-not-md">gear</i>
+            <i class="icon material-icons if-md">settings</i>
+            <span class="tabbar-label">Settings</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
+      <div id="view-home" class="view view-main view-init tab tab-active" data-url="/">
+        <!-- Home page will be loaded here dynamically from / route -->
+      </div>
+
+      <!-- Poll View -->
+      <div id="view-poll" class="view view-init tab" data-name="poll" data-url="/poll/">
+        <!-- Poll page will be loaded here dynamically from /poll/ route -->
+      </div>
+
+      <!-- Settings View -->
+      <div id="view-solution" class="view view-init tab" data-name="solution" data-url="/solution/">
+        <!-- Settings page will be loaded here dynamically from /settings/ route -->
+      </div>
+    </div>
 
     <!-- Login Screen -->
     <div class="login-screen" id="my-login-screen">
