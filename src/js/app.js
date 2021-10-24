@@ -108,47 +108,42 @@ function start() {
       });
     }
   });
+  const pieTooltip = app.pieChart.create({
+    el: ".pie-chart-2",
+    tooltip: true,
+    size: 100,
+    formatTooltip(data) {
+      const { value, label, color } = data;
+      return `You have <span style="color: ${color}">${value}</span> people voted on for ${label}`;
+    },
+  });
+
+  let pollStatsData = [];
+  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
+    let c = 0;
+    data.forEach(({ count, description, keyword }) => {
+      pollStatsData.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length], description });
+      c++;
+    });
+    updateStatsView(pieTooltip, pollStatsData);
+  });
   $(".submit-button").on("click", (e) => {
     const inputText = $(".inputText").val();
     document.querySelector(".inputText").value = "";
-    console.log(inputText);
     if (inputText === "") {
     } else {
-      console.log(pollId);
-      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText.replace(/(\r\n|\n|\r)/gm, ""), (data) => {
+      pollStatsData = [];
+      app.request.json("http://localhost:5000/api/SupplierSearch/updatePoll", "pollId=" + pollId + "&update=" + inputText.replace(/(\r\n|\n|\r)/gm, ";").replace(" ", ";"), (data) => {
         let c = 0;
-        let datasets = [];
+        console.log(data);
         data.forEach(({ count, description, keyword }) => {
-          datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length] });
+          pollStatsData.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length], description });
+          console.log(pollStatsData);
           c++;
         });
+        updateStatsView(pieTooltip, pollStatsData);
       });
     }
-  });
-
-  app.request.json("http://localhost:5000/api/SupplierSearch/pollResult", "pollId=" + pollId, (data) => {
-    let c = 0;
-    let datasets = [];
-    console.log(data);
-    data.forEach(({ count, description, keyword }) => {
-      datasets.push({ label: keyword, value: count, color: colorPalette[c % colorPalette.length], description });
-      c++;
-    });
-
-    const pieTooltip = app.pieChart.create({
-      el: ".pie-chart-2",
-      tooltip: true,
-      datasets: datasets,
-      size: 100,
-      formatTooltip(data) {
-        const { value, label, color } = data;
-        return `You have <span style="color: ${color}">${value}</span> people voted on for ${label}`;
-      },
-    });
-    $(".pie-chart-table").empty();
-    datasets.forEach(({ label, value, description }) => {
-      $(".pie-chart-table").append(getTableLine(label, value));
-    });
   });
 }
 
@@ -297,6 +292,23 @@ function getTableLine(key, val) {
   newTr.appendChild(newTh2);
   newTr.appendChild(newTh3);
   return newTr;
+}
+
+function updateStatsView(pieTooltip, dataSet) {
+  pieTooltip.update({
+    el: ".pie-chart-2",
+    tooltip: true,
+    datasets: dataSet,
+    size: 100,
+    formatTooltip(data) {
+      const { value, label, color } = data;
+      return `You have <span style="color: ${color}">${value}</span> people voted on for ${label}`;
+    },
+  });
+  $(".pie-chart-table").empty();
+  dataSet.forEach(({ label, value, description }) => {
+    $(".pie-chart-table").append(getTableLine(label, value));
+  });
 }
 
 Object.defineProperty(String.prototype, "capitalize", {
