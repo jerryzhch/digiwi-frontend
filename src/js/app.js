@@ -246,7 +246,7 @@ function getCompRow({ name, address, imageUrl, isTool, rating, keywords, url }) 
   }
   matchButton.addEventListener("click", (e) => {
     app.dialog.confirm("Confirm Match with " + e.target.getAttribute("value"), function () {
-      app.dialog.alert("Great!");
+      app.dialog.alert("Great! Somebody at " + e.target.getAttribute("value") + " will contact you. Thank You for using WeDigi");
     });
   });
   const newA = cE("a");
