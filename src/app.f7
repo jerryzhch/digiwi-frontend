@@ -5,7 +5,7 @@
       <!-- Tabbar for switching views-tabs -->
       <div class="toolbar toolbar-bottom tabbar-labels">
         <div class="toolbar-inner">
-          <a href="#view-home" class="tab-link tab-link-active" value="view-home">
+          <a href="#view-home" class="tab-link tab-link-active view-home" value="view-home">
             <i class="icon f7-icons if-not-md">house_fill</i>
             <i class="icon material-icons if-md">home</i>
             <span class="tabbar-label">Home</span>
@@ -28,12 +28,12 @@
       </div>
 
       <!-- Poll View -->
-      <div id="view-poll" class="view view-init tab" data-view="current" data-name="poll" data-url="/poll/">
+      <div id="view-poll" class="view view-init tab" data-name="poll" data-url="/poll/">
         <!-- Poll page will be loaded here dynamically from /poll/ route -->
       </div>
 
       <!-- Settings View -->
-      <div id="view-solution" class="view view-init tab" data-view="current" data-name="solution" data-url="/form/">
+      <div id="view-solution" class="view view-init tab" data-name="solution" data-url="/form/">
         <!-- Settings page will be loaded here dynamically from /settings/ route -->
       </div>
     </div>

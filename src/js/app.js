@@ -29,28 +29,14 @@ var app = new Framework7({
   on: {
     init: function () {
       console.log("App initialized");
+      setTimeout(() => {
+        start();
+      }, 500);
     },
     pageInit: function (e) {
       console.log("Page initialized");
       console.log(e.route.query.pollId);
       pollId = e.route.query.pollId;
-
-      console.log("currentPath in storage:");
-      console.log(localStorage.getItem("currentPath"));
-      var tablinks = document.getElementsByClassName("toolbar");
-      for (var i = 0; i < tablinks.length; i++) {
-        tablinks[i].addEventListener(
-          "click",
-          (e) => {
-            localStorage.setItem("currentPath", e.target.pathname);
-            console.log(e);
-          },
-          false
-        );
-      }
-      setTimeout(() => {
-        start();
-      }, 500);
     },
   },
   card: {
@@ -110,6 +96,7 @@ function start() {
         if (selectedCats.length > 0) {
           const concatString = selectedCats.reduce((a, b) => a + ";" + b);
           app.request.json(baseUrl + "/api/SupplierSearch/byKeyWords", "keyWords=" + concatString, (data) => {
+            resultCompanies.empty();
             data.forEach((d) => resultCompanies.append(getCompRow(d)));
           });
         }
